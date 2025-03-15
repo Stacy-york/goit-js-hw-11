@@ -10,7 +10,7 @@ import { renderGallery } from './js/render-functions';
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const loader = document.querySelector('.loader-container');
+const loader = document.querySelector('.loader');
 console.log(loader);
 
 form.addEventListener('submit', onSubmit);

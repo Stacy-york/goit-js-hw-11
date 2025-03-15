@@ -89,14 +89,7 @@
   object-fit: cover;
 }
 
-.loader-container {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  display: none;
-}
+
 
 .loader {
   width: 48px;
@@ -104,7 +97,12 @@
   border: 5px solid #808080;
   border-bottom-color: transparent;
   border-radius: 50%;
-  display: inline-block;
+  position: fixed;
+    top: 20%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
