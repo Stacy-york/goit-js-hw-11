@@ -15,10 +15,10 @@ console.log(loader);
 
 form.addEventListener('submit', onSubmit);
 
-async function onSubmit(event) {
-    event.preventDefault();
+function onSubmit(event) {
+  event.preventDefault();
 
-    const query = event.currentTarget.elements['search-text'].value.trim();
+  const query = event.currentTarget.elements['search-text'].value.trim();
 
   if (!query) {
     iziToast.warning({
@@ -27,31 +27,31 @@ async function onSubmit(event) {
     });
     return;
   }
-    
-    gallery.innerHTML = '';
+  
+  gallery.innerHTML = '';
+  loader.style.display = 'block';
+  console.log('Loader is shown');
 
-    loader.style.display = 'block';
-    console.log('Loader is shown');
-    
-   try {
-    const images = await fetchImages(query);
+  fetchImages(query)
+    .then((images) => {
+      if (images.length === 0) {
+        iziToast.error({
+          title: 'Error',
+          message: 'Sorry, there are no images matching your search query. Please try again!',
+        });
+        return;
+      }
 
-    if (images.length === 0) {
+      renderGallery(images); 
+    })
+    .catch((error) => {
       iziToast.error({
         title: 'Error',
-        message: 'Sorry, there are no images matching your search query. Please try again!',
+        message: 'Failed to fetch images. Please try again later.',
       });
-      return;
-    }
-
-    renderGallery(images); 
-  } catch (error) {
-    iziToast.error({
-      title: 'Error',
-      message: 'Failed to fetch images. Please try again later.',
+    })
+    .finally(() => {
+      loader.style.display = 'none';
+      console.log('Loader is hidden');
     });
-   } finally {
-       loader.style.display = 'none';
-       console.log('Loader is hidden');
-  }
 }
